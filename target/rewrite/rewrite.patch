@@ -1,5 +1,5 @@
 diff --git a/pom.xml b/pom.xml
-index 3dc3371..501f63c 100644
+index 090309f..7c9cac0 100644
 --- a/pom.xml
 +++ b/pom.xml
 @@ -14,7 +14,7 @@ org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_0
@@ -35,6 +35,90 @@ index 2b3284a..880428c 100644
          container.setPort(8081);
      }
  }
+
+diff --git a/src/main/java/com/example/demo/controller/DepartmentController.java b/src/main/java/com/example/demo/controller/DepartmentController.java
+index 466e1ce..8f293f0 100644
+--- a/src/main/java/com/example/demo/controller/DepartmentController.java
++++ b/src/main/java/com/example/demo/controller/DepartmentController.java
+@@ -18,28 +18,28 @@ org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_0
+         this.departmentService = departmentService;
+     }
+ 
+-    @RequestMapping(method = RequestMethod.GET)
++    @GetMapping
+     public List<Department> getAllDepartments() {
+         return departmentService.getAllDepartments();
+     }
+ 
+-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
++    @GetMapping("/{id}")
+     public Department getDepartmentById(@PathVariable Long id) {
+         return departmentService.getDepartmentById(id);
+     }
+ 
+-    @RequestMapping(method = RequestMethod.POST)
++    @PostMapping
+     public void createDepartment(@RequestBody Department department) {
+         departmentService.createDepartment(department);
+     }
+ 
+-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
++    @PutMapping("/{id}")
+     public void updateDepartment(@PathVariable Long id, @RequestBody Department department) {
+         department.setId(id);
+         departmentService.updateDepartment(department);
+     }
+ 
+-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
++    @DeleteMapping("/{id}")
+     public void deleteDepartment(@PathVariable Long id) {
+         departmentService.deleteDepartment(id);
+     }
+
+diff --git a/src/main/java/com/example/demo/controller/EmployeeController.java b/src/main/java/com/example/demo/controller/EmployeeController.java
+index 6c2050f..7cba562 100644
+--- a/src/main/java/com/example/demo/controller/EmployeeController.java
++++ b/src/main/java/com/example/demo/controller/EmployeeController.java
+@@ -18,33 +18,33 @@ org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_0
+         this.employeeService = employeeService;
+     }
+ 
+-    @RequestMapping(method = RequestMethod.GET)
++    @GetMapping
+     public List<Employee> getAllEmployees() {
+         return employeeService.getAllEmployees();
+     }
+ 
+-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
++    @GetMapping("/{id}")
+     public Employee getEmployeeById(@PathVariable Long id) {
+         return employeeService.getEmployeeById(id);
+     }
+ 
+-    @RequestMapping(method = RequestMethod.POST)
++    @PostMapping
+     public void createEmployee(@RequestBody Employee employee) {
+         employeeService.createEmployee(employee);
+     }
+ 
+-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
++    @PutMapping("/{id}")
+     public void updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+         employee.setId(id);
+         employeeService.updateEmployee(employee);
+     }
+ 
+-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
++    @DeleteMapping("/{id}")
+     public void deleteEmployee(@PathVariable Long id) {
+         employeeService.deleteEmployee(id);
+     }
+ 
+-    @RequestMapping(value = "/department/{departmentId}", method = RequestMethod.GET)
++    @GetMapping("/department/{departmentId}")
+     public List<Employee> getEmployeesByDepartment(@PathVariable Long departmentId) {
+         return employeeService.getEmployeesByDepartment(departmentId);
+     }
 
 diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
 index 3abe833..6a73996 100644
