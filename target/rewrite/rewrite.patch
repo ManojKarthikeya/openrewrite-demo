@@ -1,0 +1,47 @@
+diff --git a/pom.xml b/pom.xml
+index 3dc3371..501f63c 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -14,7 +14,7 @@ org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_0
+ 	<parent>
+ 		<groupId>org.springframework.boot</groupId>
+ 		<artifactId>spring-boot-starter-parent</artifactId>
+-		<version>1.5.22.RELEASE</version>
++		<version>2.0.9.RELEASE</version>
+ 		<relativePath/> <!-- lookup parent from repository -->
+ 	</parent>
+ 
+
+diff --git a/src/main/java/com/example/demo/CustomContainer.java b/src/main/java/com/example/demo/CustomContainer.java
+index 2b3284a..880428c 100644
+--- a/src/main/java/com/example/demo/CustomContainer.java
++++ b/src/main/java/com/example/demo/CustomContainer.java
+@@ -1,14 +1,14 @@ org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_0
+ package com.example.demo;
+ 
+-import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
++import org.springframework.boot.web.server.WebServerFactoryCustomizer;
++import org.springframework.boot.web.servlet.server.ConfigurableServletWebServerFactory;
+ import org.springframework.stereotype.Component;
+ 
+ @Component
+-public class CustomContainer implements EmbeddedServletContainerCustomizer {
++public class CustomContainer implements WebServerFactoryCustomizer<ConfigurableServletWebServerFactory> {
+ 
+     @Override
+-    public void customize(ConfigurableEmbeddedServletContainer container) {
++    public void customize(ConfigurableServletWebServerFactory container) {
+         container.setPort(8081);
+     }
+ }
+
+diff --git a/src/main/resources/application.properties b/src/main/resources/application.properties
+index 3abe833..6a73996 100644
+--- a/src/main/resources/application.properties
++++ b/src/main/resources/application.properties
+@@ -1,2 +1,2 @@ org.openrewrite.java.spring.boot2.UpgradeSpringBoot_2_0
+-server.context-path=/demo
++server.servlet.context-path=/demo
+ logging.level.org.springframework.web=DEBUG
+
